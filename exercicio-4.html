@@ -9,19 +9,19 @@
 
 <script>
    
-    var dado = prompt("Digite um dado:");
     
-    var verificarTipo = confirm("Deseja verificar o tipo do dado?");
+    var dado = prompt("Digite um dado:");
 
-    if (verificarTipo) 
-    {
-        var tipoDoDado = typeof dado;
-        document.body.innerHTML = "O tipo do dado é: " + tipoDoDado;
-    } 
-    else 
-    {
-        document.body.innerHTML = "Obrigado por visitar esta página.";
+if (dado !== null) { 
+    if (!isNaN(dado)) {
+        document.body.innerHTML = "Você digitou um número.";
+    } else {
+        document.body.innerHTML = "Você digitou uma string.";
     }
+} else {
+    document.body.innerHTML = "Você cancelou a entrada. Obrigado por visitar esta página.";
+}
+
 </script>
 
 </body>
