@@ -29,10 +29,10 @@
 <div id="clock"></div>
 <script>
 function updateClock() {
-  var now = new Date();
-  var horas = now.getHours().toString().padStart(2, '0');
-  var minutos = now.getMinutes().toString().padStart(2, '0');
-  var segundos = now.getSeconds().toString().padStart(2, '0');
+  var agora = new Date();
+  var horas = agora.getHours().toString().padStart(2, '0');
+  var minutos = agora.getMinutes().toString().padStart(2, '0');
+  var segundos = agora.getSeconds().toString().padStart(2, '0');
   var timeString = horas + ':' + minutos + ':' + segundos;
   document.getElementById('clock').textContent = timeString;
   setTimeout(updateClock, 1000);
