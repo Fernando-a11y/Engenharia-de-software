@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificador de Palíndromo</title>
+</head>
+<body>
+
+<label for="texto">Digite uma palavra ou frase:</label>
+<input type="text" id="texto">
+<button onclick="verificarPalindromo()">Verificar</button>
+
+<script>
+function verificarPalindromo() {
+   
+    var texto = document.getElementById('texto').value.toLowerCase();
+
+    //remove todos os caracteres não alfanuméricos (ou seja, caracteres que não são letras ou números) e sublinhados da string//
+    texto = texto.replace(/[\W_]/g, '');
+
+    
+    var textoInvertido = texto.split('').reverse().join('');
+
+    
+    if (texto === textoInvertido) {
+        alert("A palavra ou frase é um palíndromo!");
+    } else {
+        alert("A palavra ou frase não é um palíndromo.");
+    }
+    /* exemplo de frases palindromo: A base do teto desaba.
+                                     A cara rajada da jararaca
+                                     */
+                                    
+}
+</script>
+
+
+</body>
+</html>
