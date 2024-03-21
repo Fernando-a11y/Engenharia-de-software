@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exibição da Data Atual</title>
+<<style>
+    body{
+       
+        background-color: black;
+    }
+    p {
+    
+    display: flex;
+    font-size: 70px;
+    font-weight: bold;
+    width: 95vw;
+    height: 45vw;
+    color: rgb(12, 226, 12);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+   
+   
+     }
+</style>
+</head>
+<body>
+
+<p id="Data_atual"></p>
+
+<script>
+
+function nomeDoMes(mes) {
+    var nomesDosMeses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+    return nomesDosMeses[mes];
+}
+
+
+function nomeDoDiaDaSemana(diaDaSemana) {
+    var nomesDosDias = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+    return nomesDosDias[diaDaSemana];
+}
+
+
+var dataAtual = new Date();
+
+
+var dia = dataAtual.getDate();
+var mes = dataAtual.getMonth();
+var ano = dataAtual.getFullYear();
+var DiaDaSemana = dataAtual.getDay();
+
+// Obtenha os nomes por extenso
+var nomeMes = nomeDoMes(mes);
+var nomeDiaDaSemana = nomeDoDiaDaSemana(DiaDaSemana);
+
+// Crie uma string para exibir a data por extenso
+var data = nomeDiaDaSemana + ', ' + dia + ' de ' + nomeMes + ' de ' + ano;
+
+// Exiba a data por extenso no elemento com o id "data_atual"
+document.getElementById('Data_atual').textContent = 'Data atual: ' + data;
+</script>
+
+</body>
+</html>
