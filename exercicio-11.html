@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Pessoas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #contador {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .gender-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .gender {
+            margin: 0 10px;
+        }
+
+        .gender img {
+            height: 100px;
+        }
+
+        .count {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 10px;
+            font-size: 13px;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: blue;
+        }
+
+        button.incrementButton {
+            background-color: green; 
+        }
+
+        button.decrementButton {
+            background-color: red; 
+        }
+
+        button:hover {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Contador de Pessoas</h1>
+        <h1>Total</h1>
+        <div id="contador">0</div>
+    </div>
+
+    <script>
+        let mainContainer = document.getElementById('mainContainer');
+
+        let genderContainer = document.createElement('div');
+        genderContainer.classList.add('gender-container');
+
+        let masculinoDiv = document.createElement('div');
+        masculinoDiv.classList.add('gender');
+        masculinoDiv.id = 'masculino';
+        masculinoDiv.innerHTML = `
+            <img src="https://thumbs.dreamstime.com/z/homem-cinzento-do-placeholder-da-foto-pessoa-genérica-silhueta-cinzenta-em-um-fundo-branco-144511705.jpg?ct=jpeg" alt="Homem">
+            <div class="count" id="quantidadeHomem">Homens: 0</div>
+            <button class="incrementButton" data-gender="masculino">Adicionar Homem</button>
+            <button class="decrementButton" data-gender="masculino">Remover Homem</button>
+        `;
+
+        let femininoDiv = document.createElement('div');
+        femininoDiv.classList.add('gender');
+        femininoDiv.id = 'feminino';
+        femininoDiv.innerHTML = `
+            <img src="https://previews.123rf.com/images/apoev/apoev2107/apoev210700035/171405478-placeholder-de-foto-de-avatar-padrão-cone-de-imagem-de-perfil-cinza-ilustração-de-mulher-de.jpg" alt="Mulher">
+            <div class="count" id="quantidadeMulher">Mulheres: 0</div>
+            <button class="incrementButton" data-gender="feminino">Adicionar Mulher</button>
+            <button class="decrementButton" data-gender="feminino">Remover Mulher</button>
+        `;
+
+        genderContainer.appendChild(masculinoDiv);
+        genderContainer.appendChild(femininoDiv);
+
+        mainContainer.appendChild(genderContainer);
+
+
+        let counterDisplay = document.getElementById('contador');
+        let masculinoCountDisplay = document.getElementById('quantidadeHomem');
+        let femininoCountDisplay = document.getElementById('quantidadeMulher');
+
+        let count = 0;
+        let masculinoCount = 0;
+        let femininoCount = 0;
+
+        document.querySelectorAll('.incrementButton').forEach(button => {
+            button.addEventListener('click', () => {
+                const gender = button.getAttribute('data-gender');
+                if (gender === 'masculino') {
+                    masculinoCount++;
+                } else {
+                    femininoCount++;
+                }
+                count++;
+                updateCounter();
+            });
+        });
+
+        document.querySelectorAll('.decrementButton').forEach(button => {
+            button.addEventListener('click', () => {
+                const gender = button.getAttribute('data-gender');
+                if (gender === 'masculino' && masculinoCount > 0) {
+                    masculinoCount--;
+                    count--;
+                } else if (gender === 'feminino' && femininoCount > 0) {
+                    femininoCount--;
+                    count--;
+                }
+                updateCounter();
+            });
+        });
+
+        function updateCounter() {
+            counterDisplay.textContent = count;
+            masculinoCountDisplay.textContent = `Homens: ${masculinoCount}`;
+            femininoCountDisplay.textContent = `Mulheres: ${femininoCount}`;
+        }
+    </script>
+</body>
+</html>
