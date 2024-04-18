@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora iOS</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f2f2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  #calculadora {
+    width: 300px;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+  }
+  .resultado {
+    font-size: 36px;
+    text-align: center;
+    color: #000;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .botoes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+  }
+  button {
+    font-size: 24px;
+    padding: 20px 0;
+    border: none;
+    background-color: #d2d2d7;
+    color: #000;
+    transition: background-color 0.3s;
+    border-radius: 20px;
+    width: 100%;
+  }
+  button:hover {
+    background-color: white;
+  }
+  .botao-zero {
+    grid-column: span 2;
+  }
+  .zero-span {
+    display: inline-block;
+    padding: 0 10px;
+    border-radius: 20px; 
+    background-color: #d2d2d7;
+  }
+</style>
+</head>
+<body>
+
+<div id="calculadora" class="calculadora"></div>
+
+<script>
+  const containerCalculadora = document.getElementById('calculadora');
+
+  const divCalculadora = document.createElement('div');
+  divCalculadora.classList.add('calculadora');
+
+  const divResultado = document.createElement('div');
+  divResultado.classList.add('resultado');
+  divResultado.id = 'resultado';
+  divResultado.innerHTML = '<span class="zero-span">0</span>';
+  divCalculadora.appendChild(divResultado);
+
+  const divBotoes = document.createElement('div');
+  divBotoes.classList.add('botoes');
+  divCalculadora.appendChild(divBotoes);
+
+  const botoes = [
+    ['7', '8', '9', '/'],
+    ['4', '5', '6', '*'],
+    ['1', '2', '3', '-'],
+    ['C', '0', '=', '+'],
+  ];
+
+  botoes.forEach(row => {
+    row.forEach(valor => {
+      const botao = document.createElement('button');
+      botao.innerText = valor;
+      botao.addEventListener('click', () => botaoClicado(valor));
+      if (valor === '0') {
+        botao.classList.add('botao-zero'); 
+      }
+      divBotoes.appendChild(botao);
+    });
+  });
+
+  containerCalculadora.appendChild(divCalculadora);
+
+  let resultadoAtual = '0';
+  let operador = '';
+  let resultadoAnterior = '';
+
+  function atualizarExibicao() {
+    document.getElementById('resultado').innerHTML = `<span class="zero-span">${resultadoAtual}</span>`;
+  }
+
+  function adicionarNumero(numero) {
+    if (resultadoAtual === '0' && numero !== '0') {
+      resultadoAtual = numero;
+    } else {
+      resultadoAtual += numero;
+    }
+    atualizarExibicao();
+  }
+
+  function limparResultado() {
+    resultadoAtual = '0';
+    atualizarExibicao();
+  }
+
+  function definirOperador(op) {
+    operador = op;
+    resultadoAnterior = resultadoAtual;
+    limparResultado();
+  }
+
+  function calcular() {
+    if (operador === '+') {
+      resultadoAtual = parseFloat(resultadoAnterior) + parseFloat(resultadoAtual);
+    } else if (operador === '-') {
+      resultadoAtual = parseFloat(resultadoAnterior) - parseFloat(resultadoAtual);
+    } else if (operador === '*') {
+      resultadoAtual = parseFloat(resultadoAnterior) * parseFloat(resultadoAtual);
+    } else if (operador === '/') {
+      if (parseFloat(resultadoAtual) === 0) {
+        resultadoAtual = 'Erro';
+      } else {
+        resultadoAtual = parseFloat(resultadoAnterior) / parseFloat(resultadoAtual);
+      }
+    }
+    atualizarExibicao();
+    operador = '';
+  }
+
+  function botaoClicado(valor) {
+    if (valor >= '0' && valor <= '9') {
+      adicionarNumero(valor);
+    } else if (valor === 'C') {
+      limparResultado();
+    } else if (valor === '=') {
+      calcular();
+    } else {
+      definirOperador(valor);
+    }
+  }
+</script>
+
+</body>
+</html>
